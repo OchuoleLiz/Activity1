@@ -13,12 +13,13 @@ while True:
     except ValueError:
         print("This is not a Number.\nPlease enter a valid Number")
 
-if list_size == 0:
+if int(list_size) == 0:
     print("List must contain Numbers")
 else:
     print("Constructing List...")
+list_one = list(range(int(list_size) + 1))
 
-list_one = [(int(input("Enter single number and press enter:\n "))) for _ in range(int(list_size))]
+
 print("List contains: ", list_one)
 print("The Even numbers in the list are: ")
 

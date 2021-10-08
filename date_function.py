@@ -2,7 +2,12 @@ import datetime
 from datetime import timedelta
 
 def date_difference (date1, date2):
-    return (date1 - date2).days
+    while True:
+        if date2 > date1:
+            return "Date one cannot be subtracted from date two"
+        else:
+            return (date1 - date2).days
+
 
 
 
@@ -74,8 +79,10 @@ elif (val > 0 and val <= 31) or (month_two == 2) and (val > 28):
 else:
     print("Day is out of range for month")
 
+
 date_one = datetime.date(int(year_one), int(month_one), int(day_one))
 date_two = datetime.date(int(year_two), int(month_two), int(day_two))
 
+
 result = date_difference(date_one, date_two)
-print( "The difference is =", str(result) + ".")
+print(result)
