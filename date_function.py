@@ -74,8 +74,10 @@ day_two = input("Enter second day\n")
 val = int(day_two)
 if (val > 0 and val <= 31) or (month_two == 4 or 6 or 9 or 11) and (val > 31):
     print("Day is: ", val)
+    print("Difference in days is: ")
 elif (val > 0 and val <= 31) or (month_two == 2) and (val > 28):
     print("Day is: ", val)
+    print("Difference in days is: ")
 else:
     print("Day is out of range for month")
 
@@ -84,5 +86,5 @@ date_one = datetime.date(int(year_one), int(month_one), int(day_one))
 date_two = datetime.date(int(year_two), int(month_two), int(day_two))
 
 
-result = date_difference(date_one, date_two)
+result = abs(date_difference(date_one, date_two))
 print(result)
