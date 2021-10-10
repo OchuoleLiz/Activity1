@@ -86,5 +86,5 @@ date_one = datetime.date(int(year_one), int(month_one), int(day_one))
 date_two = datetime.date(int(year_two), int(month_two), int(day_two))
 
 
-result = abs(date_difference(date_one, date_two))
-print(result)
+result = date_difference(date_one, date_two)
+print(abs(result))
