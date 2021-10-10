@@ -1,90 +1,89 @@
 import datetime
 from datetime import timedelta
 
-def date_difference (date1, date2):
-    while True:
-        if date2 > date1:
-            return "Date one cannot be subtracted from date two"
-        else:
-            return (date1 - date2).days
-
-
-
-
-while True:
-    year_one = input("Enter the first year\n")
+def get_year():
+    year = input("Enter the  year\n")
     try:
-        val = int(year_one)
+        val = int(year)
         if val > 0:
             if len(str(val)) == 4:
-                print("Year one is: ", val)
-                break;
+                return val
             else:
                 print("Enter four digits for year")
+                return get_year()
+                
     except ValueError:
         print("This is not a Number.\nPlease enter a valid Number")
+        return get_year()
+        
 
-while True:
-    month_one = input("Enter a Month\n")
+
+def get_month():
+    month = input("Enter a Month\n")
     try:
-        val = int(month_one)
+        val = int(month)
         if (val > 0 and val <= 12):
-            print("Month one is: ", val)
-            break;
+            return val
         else:
             print("Enter a digit between 1 and 12")
+            return get_month()
     except ValueError:
         print("This is not a Number.\nPlease enter a valid Number")
+        return get_month()
+        
 
-day_one = input("Enter a Day\n")
-val = int(day_one)
-if (val > 0 and val <= 31) or (month_one == 4 or 6 or 9 or 11) and (val > 31):
-    print("Day is: ", val)
-elif (val > 0 and val <= 31) or (month_one == 2) and (val > 28):
-    print("Day is: ", val)
-else:
-    print("Day is out of range for month")
+def get_day(month_value):
+    
+    month_value = int(month_value)
 
-while True:
-    year_two = input("Enter second year\n")
-    try:
-        val = int(year_two)
-        if val > 0:
-            if len(str(val)) == 4:
-                print("Year two is: ", val)
-                break;
-            else:
-                print("Enter four digits for year")
-    except ValueError:
-        print("This is not a Number.\nPlease enter a valid Number")
+    day = input("Enter a Day\n")
+    val = int(day)
+    
+    if (val > 0 and val <= 30) and (month_value in [4, 6, 9, 11]): # and (val < 31):
+        print("Day is: ", val)
+        
+    elif (val > 0 and val <= 28) and (month_value == 2):
+        print("Day is: ", val)
+        
+    elif (val > 0 and val <= 31) and (month_value in [1, 3, 5, 7, 8, 10, 12]):
+        print("Day is: ", val)
+    else:
+        print("Day is out of range for this month")
+        return get_day(month_value)
 
-while True:
-    month_two = input("Enter second month\n")
-    try:
-        val = int(month_two)
-        if (val > 0 and val <= 12):
-            print("Month two is: ", val)
-            break;
-        else:
-            print("Enter a digit between 1 and 12")
-    except ValueError:
-        print("This is not a Number.\nPlease enter a valid Number")
-
-day_two = input("Enter second day\n")
-val = int(day_two)
-if (val > 0 and val <= 31) or (month_two == 4 or 6 or 9 or 11) and (val > 31):
-    print("Day is: ", val)
-    print("Difference in days is: ")
-elif (val > 0 and val <= 31) or (month_two == 2) and (val > 28):
-    print("Day is: ", val)
-    print("Difference in days is: ")
-else:
-    print("Day is out of range for month")
+    return val
 
 
-date_one = datetime.date(int(year_one), int(month_one), int(day_one))
-date_two = datetime.date(int(year_two), int(month_two), int(day_two))
+def get_date_format():
+    
+    print("Now getting first year...")
+    first_year = get_year()
+    first_month = get_month()
+    first_day = get_day(first_month)
+    print(f"You selected: {first_year}/{first_month}/{first_day}")
+    date_one = datetime.date(int(first_year), int(first_month), int(first_day))
 
+    
+    print("\n Now getting second year... \n")
+    second_year = get_year()
+    second_month = get_month()
+    second_day = get_day(second_month)
+    print(f"You selected: {second_year}/{second_month}/{second_day}")
+    
+    date_two = datetime.date(int(second_year), int(second_month), int(second_day))
+    
+    return date_one, date_two
 
-result = date_difference(date_one, date_two)
-print(abs(result))
+def date_difference():
+    date_one, date_two = get_date_format()
+    
+    if date_two > date_one:
+        print("\n Date one cannot be subtracted from date two. Try Again \n")
+        return date_difference()
+        
+    else:
+        return (date_one - date_two).days
+
+        
+days = date_difference()
+print("Difference in days is:", days)
